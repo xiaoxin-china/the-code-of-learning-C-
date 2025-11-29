@@ -1,27 +1,53 @@
 #include<iostream>
+#include<vector>
+
 using namespace std;
-const int MAXD = 30000000;
-double ans[MAXD+5];
+typedef long long ll;
+ll ans[100005];
 int main()
 {
-    double k;
-    cin>>k;
-    double t = 1.0;
-    ans[1] = 1.0;
-    int i=1;
-    for(i=2;t <= 15;i++)//打表做
+    ll l ;
+    cin>>l;
+    if(l<2)
     {
-        t+=1.0/i;
-        ans[i] = t;
+    cout<<0;
+    return 0;
     }
-    for(int j = 1;j<i;j++)
-    {
-        if(ans[j]>k)
-        {
-            cout<<j;
-            break;
-        }
+    //埃氏筛打素数表
+    int n = (int)l;
+    vector<bool> isprime(n+1,true);
+    isprime[0]=false;
+    isprime[1]=false;
 
+    for(int i=2;i*i<=n;i++)
+    {
+        if(isprime[i])
+        {
+            for(int j=i*i;j<=n;j+=i)//从i*i开始，因为从1到i的更小的因子已经处理过了。只需要每次往后处理（j+i）*i就行
+            {//不考虑这微不足道的性能可以从i*2开始
+                isprime[j] = false;
+            }
+        }
+    }
+    ll sum=0;
+    ll count =0;
+    for(ll i =2;i<=l;i++)
+    {
+        
+        if(isprime[i])
+        {
+            if(sum+i<=l)
+            {
+                cout<<i<<endl;
+                sum+=i;
+                count++;
+            }
+            else{
+                cout<<count<<endl;
+                break;
+            }
+        }
+        
     }
     return 0;
 }
