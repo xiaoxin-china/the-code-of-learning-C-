@@ -7,7 +7,7 @@ void dfs(int x,int y)
 {
     a[x][y] = '.';
     int dx,dy;
-    for(int i=-1;i<=1;i++)
+    for(int i=-1;i<=1;i++)//八联通，搜八个方向
     {
         for(int j =-1;j<=1;j++)
         {
